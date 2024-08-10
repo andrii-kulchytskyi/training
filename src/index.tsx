@@ -1,19 +1,66 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import { Provider, useSelector, useDispatch } from 'react-redux'
+import ReactDOM from 'react-dom'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+type StudentType = {
+    id: number
+    name: string
+    age: number
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const initState = {
+    students:
+        [
+            {id: 1, name: 'Bob', age: 23},
+            {id: 2, name: 'Alex', age: 22}
+        ] as Array<StudentType>
+}
+type AddStudentAT = {
+    type: 'ADD-STUDENT'
+    name: string
+    age: number
+    id: number
+}
+
+type InitialStateType = typeof initState
+
+const studentsReducer = (state: InitialStateType = initState, action: AddStudentAT): InitialStateType => {
+    switch (action.type) {
+        case 'ADD-STUDENT':
+            return {
+                ...state,
+                students: [...state.students, {
+                    name: action.name,
+                    age: action.age,
+                    id: action.id
+                }]
+            }
+    }
+    return state
+}
+
+const appStore = createStore(studentsReducer)
+type RootStateType = ReturnType<typeof studentsReducer>
+
+
+const StudentList = () => {
+    const students = useSelector((state: RootStateType) => state.students)
+    return (
+        <ul>
+            {students.map(s => <li key={s.id}>{`${s.name}. ${s.age} years.`}</li>)}
+        </ul>
+    )
+}
+const App = () => {
+    return <StudentList/>
+}
+
+ReactDOM.render(<div>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </div>,
+    document.getElementById('root')
+)
+
+// Что нужно написать вместо XXX, YYY и ZZZ, чтобы отобразился список студентов?
