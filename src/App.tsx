@@ -28,7 +28,7 @@ export const ModeSwitcher = () => {
         display: 'inline-block',
         padding: '20px'
     }
-
+let h = 1023123
     let indicatorStyle = {
         width: '20px',
         height: '20px',
