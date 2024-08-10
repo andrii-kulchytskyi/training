@@ -40,6 +40,7 @@ export const ModeSwitcher = () => {
     }
     return <>
         <div onClick={() => setOn(true)} style={onStyle}>ON</div>
+        <div>LLLELELE</div>
         <div onClick={() => setOn(false)} style={offStyle}>OFF</div>
         <div style={indicatorStyle}></div>
     </>
