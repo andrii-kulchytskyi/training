@@ -10,7 +10,7 @@ export function App() {
 
 
 export const ModeSwitcher = () => {
-
+    const [dddd, setDddd] = useState()
     let [on, setOn] = useState(false)
     let onStyle = {
         width: '30px',
